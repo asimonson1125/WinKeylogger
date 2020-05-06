@@ -38,7 +38,7 @@ namespace Helper {
             return std::string(D < 10 ? "0" : "") + toString(D) + std::string( m < 10 ? ".0" : ".") + toString(m) + "." + toString(y);
         }
 
-        std::string GetTimeString(const std::string &sep = ":"){
+        std::string GetTimeString(const std::string &sep = ":")const {
             return std::string(H < 10 ? "0" : "") + toString(H) + sep + std::string(M < 10 ? "0" : "") + toString(M) + sep + std::string(S < 10 ? sep : "") + toString(S);
         }
 

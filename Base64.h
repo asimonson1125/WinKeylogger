@@ -32,7 +32,7 @@ namespace Base64{
         std::string ret;
         int val = 0;
         int bits = -6;
-        const unsigned int b663 = 0x3F;
+        const unsigned int b63 = 0x3F;
 
         for(const auto &c : s){
             val = (val << 8) + c;
