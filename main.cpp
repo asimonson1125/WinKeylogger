@@ -1,6 +1,10 @@
 #include <iostream>
 #include <windows.h>
 
+#include "helper.h"
+#include "KeyConstants.h"
+#include "Base64.h"
+
 using namespace std;
 
 int main()

@@ -7,7 +7,7 @@ class KeyPair{
 public:
     KeyPair(const std::string &vk = "", const std::string &name = "") : VKName(vk), Name(name) {}
     std::string VKName;
-    std::string name;
+    std::string Name;
 };
 class Keys {
 public:
