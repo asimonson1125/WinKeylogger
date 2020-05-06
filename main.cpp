@@ -5,6 +5,7 @@
 #include "KeyConstants.h"
 #include "Base64.h"
 #include "io.h"
+#include "Timer.h"
 
 using namespace std;
 
