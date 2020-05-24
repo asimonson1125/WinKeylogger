@@ -15,6 +15,7 @@ namespace IO {
         return full + (append_seperator ? "\\" : "");
     }
 
+
     bool MkOneDr(std::string path){
         return (bool)CreateDirectory(path.c_str(), NULL) || GetLastError() == ERROR_ALREADY_EXISTS;
     }
