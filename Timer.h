@@ -6,9 +6,6 @@
 #include <chrono>
 
 class Timer {
-public:
-    const std::function<void(void)> Function();
-private:
     std::thread Thread;
     bool alive = false;
     long CallNumber = -1L;
@@ -89,7 +86,7 @@ public:
 
     unsigned long Interval() const {return interval.count();}
 
-    const std::function<void(void)> &Function() const{
+    const std::function<void(void)> &Function() const {
         return funct;
     }
 };
